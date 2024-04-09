@@ -1,0 +1,31 @@
+{
+  "@context": [
+    "https://www.w3.org/2018/credentials/v1"
+  ],
+  "id": "urn:uuid:34d08c3a-ef24-454d-b574-e1f48c41c7b1",
+  "type": [
+    "VerifiableCredential",
+    "EmploymentCredential"
+  ],
+  "issuer": {
+    "type": [
+      "Profile"
+    ],
+    "id": "did:key:z6MkjoRhq1jSNJdLiruSXrFFxagqrztZaXHqHGUTKJbcNywp",
+    "name": "Baba's Burger",
+    "url": "https://www.bb.example/"
+  },
+  "issuanceDate": "2012-03-26T20:03:22.480405976Z",
+  "credentialSubject": {
+    "id": "did:key:z6MkrrjLjH4s5Jxnemaba2zAY5QeT4uaYpTuSJE7tG8EFjkh#z6MkrrjLjH4s5Jxnemaba2zAY5QeT4uaYpTuSJE7tG8EFjkh",
+    "type": [
+      "EmploymentCredential"
+    ],
+    "employmentPeriod": {
+      "employer": "Baba's Burger",
+      "jobTitle": "Nutrition Architect",
+      "startDate": "2009-04-01",
+      "endDate": "2012-03-26"
+    }
+  }
+} 

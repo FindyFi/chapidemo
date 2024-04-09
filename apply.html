@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="width">
+  <meta name="theme-color" content="#0d0342">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Apply for a job using verifiable credentials">
+  <meta property="og:url" content="https://demoapply.findy.fi/">
+  <meta property="og:image" content="/favicon.png">
+  <meta property="og:description" content="Use your verifiable credentials in a job application">
+  <link rel="stylesheet" href="style.css"/>
+  <link rel="icon" href="favicon.ico"/>
+  <title>JobApply</title>
+  <script src="https://unpkg.com/credential-handler-polyfill@3/dist/credential-handler-polyfill.min.js"></script>
+ </head>
+ <body>
+  <h1>JobApply</h1>
+  <form onsubmit="this.innerHTML = '<p>Thanks for your application!</p><p><a href=&quot;apply.html&quot;>Submit another</a></form>'; return false;">
+   <fieldset id="personaldetails">
+    <legend>Personal details</legend>
+    <table>
+     <tr><th><label for="givenName">Given name:</label></th><td><input id="givenName" name="givenName" /></td></tr>
+     <tr><th><label for="familyName">Family name:</label></th><td><input id="familyName" name="familyName" /></td></tr>
+     <tr><th><label for="birthDate">Birth date:</label></th><td><input id="birthDate" type="date" name="birthDate" /></td></tr>
+     <tr><th><label for="streetAddress">Street address:</label></th><td><input id="streetAddress" name="streetAddress" size="30" /></td></tr>
+     <tr><th><label for="postalCode">Postal code:</label></th><td><input id="postalCode" name="postalCode" size="6" /></td></tr>
+     <tr><th><label for="locality">Locality:</label></th><td><input id="locality" name="locality" /></td></tr>
+     <tr><th><label for="nationality">Nationality:</label></th><td><input id="nationality" name="nationality" /></td></tr>
+     <tr><th><label for="telephone">Telephone:</label></th><td><input id="telephone" name="telephone" /></td></tr>
+     <tr><th><label for="email">E-mail:</label></th><td><input id="email" name="email" /></td></tr>
+    </table>
+   </fieldset>
+   <fieldset id="employment">
+    <legend>Employment history</legend>
+    <table>
+     <tr><th><label for="employer">Employer name:</label></th><td><input id="employer" name="employer" /></td></tr>
+     <tr><th><label for="jobTitle">Job title:</label></th><td><input id="jobTitle" name="jobTitle" /></td></tr>
+     <tr><th><label for="startDate">Employment start date:</label></th><td><input id="startDate" type="date" name="startDate" /></td></tr>
+     <tr><th><label for="endDate">Employment end date:</label></th><td><input id="endDate" type="date" name="endDate" /></td></tr>
+    </table>
+   </fieldset>
+   <fieldset id="education">
+    <legend>Education</legend>
+    <table>
+     <tr><th><label for="institute">Institute name:</label></th><td><input id="institute" name="institute" size="40" /></td></tr>
+     <tr><th><label for="achievementDate">Achievement date:</label></th><td><input id="achievementDate" type="date" name="achievementDate" /></td></tr>
+     <tr><th><label for="degreeLevel">Degree level:</label></th><td><input id="degreeLevel" name="degreeLevel" size="40" /></td></tr>
+     <tr><th><label for="degreeName">Degree name:</label></th><td><input id="degreeName" name="degreeName" size="40" /></td></tr>
+    </table>
+   </fieldset>
+   <input type="submit" value="Submit">
+  </form>
+  <script type="module">
+    await credentialHandlerPolyfill.loadOnce();
+   </script>
+   <script>
+
+   // function for adding educations
+   const edu = document.querySelector('#education')
+   const addEdu = document.createElement('button')
+   addEdu.textContent = 'Add another'
+   addEdu.onclick = function(e) {
+    e.preventDefault()
+    const tables = edu.querySelectorAll('table')
+    const t = tables[0]
+    const t2 = t.cloneNode(true)
+    const identified = t2.querySelectorAll('label, input')
+    for (elem of identified) {
+     if (elem.getAttribute('for')) elem.setAttribute('for', elem.getAttribute('for') + tables.length.toString())
+     if (elem.id) elem.id += tables.length.toString()
+     if (elem.tagName.toLowerCase() == 'input') elem.value = elem.defaultValue
+    }
+    edu.insertBefore(t2, addEdu)
+    return false;    
+   }
+   edu.appendChild(addEdu)
+
+   // function for adding employments
+   const emp = document.querySelector('#employment')
+   const addEmp = document.createElement('button')
+   addEmp.textContent = 'Add another'
+   addEmp.onclick = function(e) {
+    e.preventDefault()
+    const tables = emp.querySelectorAll('table')
+    const t = tables[0]
+    const t2 = t.cloneNode(true)
+    const identified = t2.querySelectorAll('label, input')
+    for (elem of identified) {
+     if (elem.getAttribute('for')) elem.setAttribute('for', elem.getAttribute('for') + tables.length.toString())
+     if (elem.id) elem.id += tables.length.toString()
+     if (elem.tagName.toLowerCase() == 'input') elem.value = elem.defaultValue
+    }
+    emp.insertBefore(t2, addEmp)
+    return false;
+   }
+   emp.appendChild(addEmp)
+
+   // read personal information from a wallet
+   const pd = document.querySelector('#personaldetails')
+   const personQuery = {
+    web: {
+     VerifiablePresentation: {
+      query: [{
+       type: "QueryByExample",
+       credentialQuery: {
+        reason: "Enter your personal details from a verifiable credential.",
+        example: {
+         type: [
+          "PermanentResidentCard"
+         ],
+        }
+       }
+      }]
+     },
+     recommendedHandlerOrigins: [
+      "https://webwallet.findy.fi",
+      "https://wallet.example.chapi.io",
+      "https://demo.vereswallet.dev"
+     ]
+    }
+   }
+   async function requestPersonalDetails(e) {
+    e.preventDefault()
+    const result = await navigator.credentials.get(personQuery)
+    // console.log(JSON.stringify(result, null, 2))
+    let vc = result.data?.verifiableCredential
+    if (Array.isArray(vc)) {
+     vc = vc[0]
+    }
+    const t = pd.querySelector('table')
+    for (const prop in vc?.credentialSubject) {
+      const elem = t.querySelector(`[id*="${prop}"]`)
+      if (elem) {
+        elem.value = vc.credentialSubject[prop]
+      }
+    }
+    return false
+   }
+   const persb = document.createElement('button')
+   persb.className = 'wallet'
+   persb.textContent = 'Use wallet'
+   persb.onclick = requestPersonalDetails
+   pd.insertBefore(persb, pd.firstChild)
+
+   // get education from wallet
+   const educationQuery = {
+    web: {
+     VerifiablePresentation: {
+      query: [{
+       type: "QueryByExample",
+       credentialQuery: {
+        reason: "Please present your education credentials to continue the job application process.",
+        example: {
+         context: [
+          "https://www.w3.org/2018/credentials/v1",
+          "https://purl.imsglobal.org/spec/ob/v3p0/context-3.0.3.json",
+          "https://purl.imsglobal.org/spec/ob/v3p0/extensions.json",
+          "https://w3id.org/security/suites/ed25519-2020/v1"  
+         ],
+         type: ["OpenBadgeCredential"],
+        }
+       }
+      }]
+     },
+     recommendedHandlerOrigins: [
+      "https://webwallet.findy.fi",
+      "https://demo.vereswallet.dev/",
+      "https://wallet.example.chapi.io/",
+      "https://learncard.app/",
+      "https://pass.scout.org/"
+     ]
+    }
+   }
+   async function requestEducation(e) {
+    e.preventDefault()
+    const result = await navigator.credentials.get(educationQuery)
+    // console.log(JSON.stringify(result, null, 2))
+    let vcs = result.data?.verifiableCredential
+    if (!Array.isArray(vcs)) {
+     vcs = [result.data?.verifiableCredential]
+    }
+    for (const vc of vcs) {
+     // console.log(vc)
+     const t = edu.querySelector('table:last-of-type')
+     t.querySelector('[id*="institute"]').value = vc?.issuer?.name || ""
+     t.querySelector('[id*="degreeLevel"]').value = vc?.credentialSubject?.achievementType || ""
+     t.querySelector('[id*="degreeName"]').value = vc?.credentialSubject?.achievement.name || ""
+     t.querySelector('[id*="achievementDate"]').value = vc?.issuanceDate?.substring(0, 10) || ""
+     addEdu.click()
+    }
+    return false
+   }
+   const edub = document.createElement('button')
+   edub.className = 'wallet'
+   edub.textContent = 'Use wallet'
+   edub.onclick = requestEducation
+   edu.insertBefore(edub, edu.firstChild)
+
+   // get employment from wallet
+   const employmentQuery = {
+    web: {
+     VerifiablePresentation: {
+      query: [{
+       type: "QueryByExample",
+       credentialQuery: {
+        reason: "Please present your employment history to continue the job application process.",
+        example: {
+         type: [
+          "VerifiableCredential",
+         ],
+        }
+       }
+      }]
+     },
+     recommendedHandlerOrigins: [
+      "https://webwallet.findy.fi",
+      "https://wallet.example.chapi.io/",
+      "https://demo.vereswallet.dev/"
+     ]
+    }
+   }
+   async function requestEmployment(e) {
+    e.preventDefault()
+    const result = await navigator.credentials.get(employmentQuery)
+    // console.log(JSON.stringify(result, null, 2))
+    let vcs = result.data?.verifiableCredential
+    if (!Array.isArray(vcs)) {
+     vcs = [result.data?.verifiableCredential]
+    }
+    for (const vc of vcs) {
+     // console.log(vc)
+     const t = emp.querySelector('table:last-of-type')
+     t.querySelector('[id*="employer"]').value = vc?.credentialSubject?.employmentPeriod?.employer || ""
+     t.querySelector('[id*="jobTitle"]').value = vc?.credentialSubject?.employmentPeriod?.jobTitle || ""
+     t.querySelector('[id*="startDate"]').value = vc?.credentialSubject?.employmentPeriod?.startDate || ""
+     t.querySelector('[id*="endDate"]').value = vc?.credentialSubject?.employmentPeriod?.endDate || ""
+     addEmp.click()
+    }
+    return false
+   }
+   const empb = document.createElement('button')
+   empb.className = 'wallet'
+   empb.textContent = 'Use wallet'
+   empb.onclick = requestEmployment
+   emp.insertBefore(empb, emp.firstChild)
+
+  </script>
+ </body>
+</html>

@@ -1,0 +1,37 @@
+{
+  "@context": [
+    "https://www.w3.org/2018/credentials/v1",
+    "https://purl.imsglobal.org/spec/ob/v3p0/context.json"
+  ],
+  "id": "urn:uuid:6a7045b2-156d-49ce-a533-3dc09e6a2392",
+  "type": [
+    "VerifiableCredential",
+    "OpenBadgeCredential"
+  ],
+  "issuer": {
+    "type": [
+      "Profile"
+    ],
+    "id": "did:key:z6MkjoRhq1jSNJdLiruSXrFFxagqrztZaXHqHGUTKJbcNywp",
+    "name": "University of Future Studies",
+    "url": "https://www.future.uni.example"
+  },
+  "issuanceDate": "2004-06-06T12:34:56Z",
+  "credentialSubject": {
+    "type": [
+      "AchievementSubject"
+    ],
+    "achievement": {
+      "id": "urn:uuid:d94775d8-a40b-4d3b-8126-bb8a6e8dfd2e",
+      "type": [
+        "Achievement"
+      ],
+      "name": "Master of Reverse Engineering",
+      "description": "The holder of this credential is quite a hacker.",
+      "criteria": {
+        "type": "Criteria",
+        "narrative": "Demonstrated skills of debugging and problem-solving."
+      }
+    }
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "@context": [
+    "https://www.w3.org/2018/credentials/v1"
+  ],
+  "id": "urn:uuid:e6babe8b-647a-46d0-8d5a-ac68954c5d0b",
+  "type": [
+    "VerifiableCredential",
+    "PersonalDetailsCredential"
+  ],
+  "issuer": {
+    "type": [
+      "Profile"
+    ],
+    "id": "did:key:z6MkjoRhq1jSNJdLiruSXrFFxagqrztZaXHqHGUTKJbcNywp",
+    "name": "Government Agency for People",
+    "url": "https://www.pa.gov.example/"
+  },
+  "issuanceDate": "2008-01-12T14:03:22.480405976Z",
+  "credentialSubject": {
+    "type": [
+      "PersonalDetailsCredential"
+    ],
+    "givenName": "Jane",
+    "familyName": "Doe",
+    "birthDate": "1987-06-05",
+    "streetAddress": "101 Credential Road",
+    "postalCode": "33101",
+    "locality": "Trusteria",
+    "nationality": "Balinese",
+    "telephone": "+987-654-3210",
+    "email": "jane.doe@example.com"
+  }
+} 

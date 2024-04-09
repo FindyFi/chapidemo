@@ -1,0 +1,223 @@
+/* Findynet basic color styles */
+
+:root {
+    --brand-turquoise: #4ffaff;
+    --brand-lightblue: #0082ff;
+    --brand-mediumblue: #0a00be;
+    --brand-darklue: #0d0342;
+    --brand-soft: #ffebd2;
+}
+.white {
+    background-color: white;
+    color: var(--brand-darklue);
+}
+.mediumblue {
+    background-color: var(--brand-mediumblue);
+    color: white;
+}
+.turquoise {
+    background-color: var(--brand-turquoise);
+    color: var(--brand-mediumblue);
+}
+.darkblue {
+    background-color: var(--brand-darklue);
+    color: var(--brand-soft);
+}
+.darkbluew {
+    background-color: var(--brand-darklue);
+    color: white;
+}
+.lightblue {
+    background-color: var(--brand-lightblue);
+    color: white;
+}
+.soft {
+    background-color: var(--brand-soft);
+    color: var(--brand-darklue);
+}
+.findy-gradient {
+    background: linear-gradient(74deg, var(--brand-turquoise), var(--brand-mediumblue));
+    color: var(--brand-darklue);
+}
+.light-gradient {
+    background: linear-gradient(74deg, var(--brand-turquoise), var(--brand-lightblue));
+    color: var(--brand-darklue);
+}
+.dark-gradient {
+    background: linear-gradient(74deg, var(--brand-mediumblue), var(--brand-darklue));
+    color: var(--brand-soft);
+}
+.blue-gradient {
+    background: linear-gradient(74deg, var(--brand-mediumblue), var(--brand-lightblue));
+    color: white;
+}
+
+
+/* Additional logo colors (rarely used) */
+
+:root {
+    --logo-text: #1d2250;
+    --logo-first: var(--brand-turquoise);
+    --logo-firstclip: #8cffff;
+    --logo-second: #00c7ff;
+    --logo-third: var(--brand-turquoise);
+    --logo-thirdclip: #0038ff;
+    --logo-fourth: var(--brand-mediumblue);
+}
+.logo-text {
+    background: transparent;
+    color: var(--logo-text);
+}
+.logo-first {
+    background: var(--logo-first);
+    color: var(--logo-text);
+}
+.logo-firstclip {
+    background: var(--logo-firstclip);
+    color: var(--logo-text);
+}
+.logo-second {
+    background: var(--logo-second);
+    color: var(--logo-text);
+}
+.logo-third {
+    background: var(--logo-thir);
+    color: var(--logo-text);
+}
+.logo-thirdclip {
+    background: var(--logo-thirdclip);
+    color: white;
+}
+.logo-fourth {
+    background: var(--logo-fourth);
+    color: var(--logo-text);
+}
+
+
+/* Commonly used basic settings */
+
+
+body {
+    background-color: white;
+    color: var(--brand-darklue);
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    padding: 2em;
+}
+body.demo {
+    background: linear-gradient(74deg, var(--brand-mediumblue), var(--brand-darklue));
+    color: var(--brand-soft);
+}
+a {
+    color: var(--brand-mediumblue);
+}
+a:visited {
+    color: var(--brand-darklue);
+}
+.demo a {
+    color: var(--brand-soft);
+}
+.demo a:visited {
+    color: white;
+}
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: var(--brand-darklue);
+        color: var(--brand-soft);
+    }
+    a {
+        color: white;
+    }
+    a:visited {
+        color: var(--brand-soft);
+    }
+}
+
+
+* {
+    box-sizing: border-box;        
+    margin-block-start: 0;
+    margin-block-end: 0;
+    margin-inline-start: 0;
+    margin-inline-end: 0;
+}
+
+/* Styles specific to this demo */
+
+.tablet {
+    background-color: #000;
+    border: 2px outset #000;
+    border-radius: 1em;
+    padding: 2em;
+    min-height: 1024px;
+    min-width: 768px;
+}
+h1 {
+    font-size: 48pt;
+}
+h2 {
+    font-size: 36pt;
+}
+h3 {
+    clear: both;
+    font-size: 24pt;
+    padding-top: 2em;
+}
+p, li {
+    font-size: x-large;
+}
+p {
+    margin: 1em auto;
+}
+form {
+    max-width: 40em;
+}
+fieldset, legend {
+    border-radius: 0.25em;
+}
+fieldset {
+    border-color: var(--brand-darklue);
+    margin: 1em 0;
+    padding: 1em;
+}
+legend {
+    background-color: var(--brand-darklue);
+    color: white;
+    padding: 0.25em 0.5em;
+}
+table {
+    border-collapse: collapse;
+    margin: 0 0 1em 0;
+}
+th {
+    text-align: left;
+}
+td {
+    padding: 0 1em;
+}
+input[type="submit"] {
+    background-color: var(--brand-darklue);
+    border-radius: 1em;
+    color: white;
+    font-size: larger;
+    padding: 0.25em 0.5em;
+}
+button.wallet, #hidebutton {
+    background-color: var(--brand-turquoise);
+    border-radius: 1em;
+    border-color: var(--brand-lightblue);
+    border-style: outset;
+    border-width: 3px;
+    color: var(--brand-mediumblue);
+    padding: 0.25em 0.5em;
+}
+button.wallet {
+    float: right;
+}
+button:focus {
+    border-style: inset;
+}
+img.hide {
+    float: left;
+    box-shadow: -0.5em 0.5em 1em black;
+    margin: 0 1em 2em 0;
+}

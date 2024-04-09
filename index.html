@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="width">
+  <meta name="theme-color" content="#0d0342">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Apply for a job using verifiable credentials">
+  <meta property="og:url" content="https://demoapply.findy.fi/">
+  <meta property="og:image" content="/favicon.png">
+  <meta property="og:description" content="Use your verifiable credentials in a job application">
+  <link rel="stylesheet" href="style.css"/>
+  <link rel="icon" href="favicon.ico"/>
+  <title>Apply for a job using verifiable credentials</title>
+  <script src="https://unpkg.com/credential-handler-polyfill@3/dist/credential-handler-polyfill.min.js"></script>
+  <script type="module">
+   await credentialHandlerPolyfill.loadOnce()
+  </script>
+</head>
+ <body class="demo">
+  <h1>Demo: apply for a job</h1>
+  <h2>Using verifiable credentials</h2>
+  <h3>Step 1: register web wallet</h3>
+  <p>Go to <a target="_blank" href="https://webwallet.findy.fi">webwallet.findy.fi</a> and allow the wallet to store credentials to your browser.</p>
+  <h3>Step 2: get credentials</h3>
+  <iframe class="tablet" src="credentials.html" style="float: right"></iframe>
+  <p>Open <a href="credentials.html">credentials page</a> and add the following credentials to your web wallet:</p>
+  <ol>
+    <li id="personalDetails">Personal details</li>
+    <li id="employment">Employment (2 credentials)</li>
+    <li id="education">Education (2 credentials)</li>
+  </ol>
+  <h3>Step 3: fill application form</h3>
+  <iframe class="tablet" src="apply.html" style="float: right"></iframe>
+  <p>Fill in the <a href="apply.html">job application form</a>.</p>
+  <p>Instead of filling in each field manually, you can use the <code>Use wallet</code> button to get information from your web wallet.</code></p>
+  <h3>Step 4: disable the web wallet</h3>
+  <p><img class="hide" src="hide.png" alt="screenshot" />You can continue using Findy web wallet for other experiments and demos. You can head out to <a href="https://vcplayground.org/">vcplayground.org</a> and test using different kinds of credentials. If you want to remove the web wallet functionality from your browser, invoke the wallet selector from the button below and select <code>Hide</code> next to Findynet web wallet in the dialog.</p>
+  <button id="hidebutton">Show wallet selector</button>
+  <script>
+    const ifr = document.querySelector('iframe[src="credentials.html"]')
+    const pd = document.getElementById('personalDetails')
+    pd.onclick = (e) => {
+      ifr.src = "credentials.html#pd"
+      return false
+    }
+    const emp = document.getElementById('employment')
+    emp.onclick = (e) => {
+      ifr.src = "credentials.html#emp"
+      return false
+    }
+    const edu = document.getElementById('education')
+    edu.onclick = (e) => {
+      ifr.src = "credentials.html#edu"
+      return false
+    }
+    const hideQuery = {
+     web: {
+      VerifiablePresentation: {
+       query: [{
+        type: "QueryByExample",
+        credentialQuery: {
+         reason: "Just invoking the wallet selector.",
+         example: {
+          type: [
+          "VerifiableCredential"
+         ],
+        }
+       }
+      }]
+     },
+     recommendedHandlerOrigins: [
+      "https://webwallet.findy.fi",
+     ]
+    }
+   }
+   const b = document.getElementById('hidebutton')
+   b.onclick = async (e) => {
+    e.preventDefault()
+    const result = await navigator.credentials.get(hideQuery)
+    return false
+   }
+
+  </script>
+ </body>
+</html>

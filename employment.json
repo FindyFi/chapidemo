@@ -1,0 +1,30 @@
+{
+  "@context": [
+    "https://www.w3.org/2018/credentials/v1"
+  ],
+  "id": "urn:uuid:ea4928ce-b870-42b0-9729-2eb7e11380d6",
+  "type": [
+    "VerifiableCredential",
+    "EmploymentCredential"
+  ],
+  "issuer": {
+    "type": [
+      "Profile"
+    ],
+    "id": "did:key:z6MkjoRhq1jSNJdLiruSXrFFxagqrztZaXHqHGUTKJbcNywp",
+    "name": "Aqualand",
+    "url": "https://www.aqualand.example/"
+  },
+  "issuanceDate": "2012-03-26T20:03:22.480405976Z",
+  "credentialSubject": {
+    "id": "did:key:z6MkrrjLjH4s5Jxnemaba2zAY5QeT4uaYpTuSJE7tG8EFjkh#z6MkrrjLjH4s5Jxnemaba2zAY5QeT4uaYpTuSJE7tG8EFjkh",
+    "type": [
+      "EmploymentCredential"
+    ],
+    "employmentPeriod": {
+      "employer": "Aqualand",
+      "jobTitle": "Orca Trainer",
+      "startDate": "2012-04-01"
+    }
+  }
+} 
