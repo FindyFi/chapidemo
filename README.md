@@ -4,6 +4,6 @@ This is a proof-of-concept demo of using digital wallets running in a web browse
 
 Based on [CHAPI](https://w3c-ccg.github.io/credential-handler-api/)
 
-Using [chapi-demo-wallet](https://github.com/FindyFi/chapi-demo-wallet) forked from https://github.com/credential-handler/chapi-demo-wallet running at [webwallet.findy.fi](https://webwallet.findy.fi/)
+Using [chapi-demo-wallet](https://github.com/FindyFi/chapi-demo-wallet) forked from [credential-handler/chapi-demo-wallet](https://github.com/credential-handler/chapi-demo-wallet) running at [webwallet.findy.fi](https://webwallet.findy.fi/)
 
-This demo is running at https://apply.test.findy.fi/
+This demo is running at [apply.test.findy.fi](https://apply.test.findy.fi/)
